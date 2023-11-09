@@ -1,0 +1,120 @@
+.backdrop {
+  width: 100dvw;
+  min-height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  display: none;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.logo img {
+  width: 120px;
+}
+
+.expanded_sidebar_container {
+  min-width: 300px;
+  max-width: 300px;
+  min-height: calc(100dvh - 85px);
+  max-height: calc(100dvh - 85px);
+  margin-top: 85px;
+
+  overflow: hidden;
+  overflow-y: scroll;
+
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.15s linear;
+}
+
+.expanded_sidebar_container.close {
+  min-width: 0px;
+  max-width: 0px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* width */
+.expanded_sidebar_container::-webkit-scrollbar,
+.mobile_sidebar_open::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.expanded_sidebar_container::-webkit-track,
+.mobile_sidebar_open::-webkit-track {
+  background: #fff;
+}
+
+/* Handle */
+.expanded_sidebar_container::-webkit-thumb,
+.mobile_sidebar_open::-webkit-thumb {
+  background: #ccc;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+.expanded_sidebar_container::-webkit-scrollbar-thumb:hover,
+.mobile_sidebar_open::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.expanded_sidebar_contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.divider {
+  width: 100%;
+  border-style: solid;
+  border-color: rgb(227, 232, 239);
+  opacity: 1;
+}
+
+.mobile_sidebar_open {
+  min-width: 300px;
+  max-width: 300px;
+  height: 100dvh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  overflow-y: scroll;
+  background-color: #fff;
+
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.15s linear;
+
+  display: none;
+}
+
+.mobile_sidebar_open.close {
+  min-width: 0px;
+  max-width: 0px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .backdrop {
+    display: block;
+  }
+
+  .expanded_sidebar_container {
+    display: none;
+  }
+
+  .mobile_sidebar_open {
+    display: block;
+  }
+}
