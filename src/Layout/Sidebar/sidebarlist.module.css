@@ -44,7 +44,7 @@
   width: 100%;
 }
 
-.accordion_summary p {
+.accordion_heading {
   display: flex;
   align-items: center;
   gap: 1rem;

@@ -26,10 +26,10 @@ const SidebarAccordion = ({ heading, items, children, depth = 1 }) => {
         id="panel1a-header"
         className={classes.accordion_summary}
       >
-        <Typography>
+        <div className={classes.accordion_heading}>
           {children}
           <span>{heading}</span>
-        </Typography>
+        </div>
       </AccordionSummary>
       <AccordionDetails className={classes.accordion_details}>
         <>

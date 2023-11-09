@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./navbar.module.css";
 import Logo from "/src/assets/login_logo.svg";
 import Profile from "/src/assets/profile.avif";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -11,15 +10,16 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SensorsIcon from "@mui/icons-material/Sensors";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { FormControl } from "@mui/base";
-import {
-  FilledInput,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import { InputAdornment, OutlinedInput } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const Navbar = ({ toggleSidebar }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const mobileIconHandler = () => {
+    setMenuOpen((prevState) => !prevState);
+  };
+
   return (
     <nav className={classes.navbar}>
       <div className={classes.navbar_search_logo_container}>
@@ -63,17 +63,25 @@ const Navbar = ({ toggleSidebar }) => {
       </div>
       <div className={classes.action_icons_container}>
         <div className={classes.action_icons}>
-          <div className={classes.action_icon}>
-            <SensorsIcon />
+          <div className={`${classes.mobile_menu}`} onClick={mobileIconHandler}>
+            <MoreVertIcon />
           </div>
           <div
-            className={`${classes.action_icon} ${classes.action_icon_translate}`}
+            className={`${classes.all_menu} ${menuOpen ? classes.open : ""}`}
           >
-            <TranslateIcon />
+            <div className={classes.action_icon}>
+              <SensorsIcon />
+            </div>
+            <div
+              className={`${classes.action_icon} ${classes.action_icon_translate}`}
+            >
+              <TranslateIcon />
+            </div>
+            <div className={classes.action_icon}>
+              <NotificationsNoneIcon />
+            </div>
           </div>
-          <div className={classes.action_icon}>
-            <NotificationsNoneIcon />
-          </div>
+
           <div className={classes.profile}>
             <img src={Profile} alt="profile" />
             <SettingsIcon
