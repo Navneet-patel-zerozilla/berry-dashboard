@@ -87,7 +87,21 @@ export const list3 = [
     toLink: "customer",
     icon: TextSnippetIcon,
     name: "Customer",
-    accordion: false,
+    accordion: true,
+    accordionItems: [
+      {
+        toLink: "customer-list",
+        name: "Customer List",
+      },
+      {
+        toLink: "order-list",
+        name: "Order List",
+      },
+      {
+        toLink: "create-invoice",
+        name: "Create Invoice",
+      },
+    ],
   },
   {
     toLink: "chat",

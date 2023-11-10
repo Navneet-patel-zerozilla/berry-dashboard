@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import classes from "../pages/Dashboard/dashboard.module.css";
+import classes from "./global_dashboard_layout.module.css";
 import Navbar from "./Navbar/Navbar";
 import SidebarCompact from "./Sidebar/SidebarCompact";
 import ExpandedSidebar from "./Sidebar/ExpandedSidebar";

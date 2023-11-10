@@ -49,7 +49,7 @@
   padding: 0.5rem 0rem;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
   .sidebar_compact {
     min-width: 0px;
     max-width: 0px;

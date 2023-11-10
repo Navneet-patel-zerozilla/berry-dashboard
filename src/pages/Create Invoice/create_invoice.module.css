@@ -1,0 +1,65 @@
+.invoice_heading h1 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  padding: 1.5rem;
+}
+
+.container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 3rem;
+}
+
+.date_picker {
+  width: 100%;
+}
+
+.button_invoice {
+  justify-content: flex-end;
+}
+
+.invoice_table {
+  box-shadow: 0px 2px 1px -1px #fff, 0px 1px 1px 0px #fff, 0px 1px 3px 0px #fff !important;
+}
+
+.invoice_summary {
+  justify-content: flex-end;
+  background-color: rgb(227, 242, 253);
+}
+
+.invoice_summary_paper {
+  background-color: rgb(227, 242, 253) !important;
+  box-shadow: 0px 2px 1px -1px rgb(227, 242, 253),
+    0px 1px 1px 0px rgb(227, 242, 253), 0px 1px 3px 0px rgb(227, 242, 253) !important;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.summary_total {
+  color: blue;
+}
+
+.invoice_description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.invoice_description span:first-of-type {
+  font-weight: 500;
+}
+.invoice_description span:last-of-type {
+  font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    font-size: 14px;
+  }
+}
