@@ -6,11 +6,14 @@ import DashboardLayout from "./Layout/DashboardLayout";
 import CustomerList from "./pages/CustomerList/CustomerList";
 import OrderList from "./pages/OrderList/OrderList";
 import CreateInvoice from "./pages/Create Invoice/CreateInvoice";
+import Home from "./pages/Home/Home";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
+
         <Route
           path="/dashboard/*"
           element={

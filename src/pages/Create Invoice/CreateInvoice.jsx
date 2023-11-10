@@ -18,34 +18,6 @@ import AddProduct from "../../components/Invoice/AddProduct";
 import AddItemButton from "../../components/Invoice/AddItemButton";
 import ProductTable from "../../components/Invoice/ProductTable";
 
-function createData(id, description, quantity, amount) {
-  return {
-    id: id,
-    totalCount: quantity * amount,
-    Description: (
-      <div className={classes.invoice_description}>
-        <span>{description.title}</span>
-        <span>{description.subTitle}</span>
-      </div>
-    ),
-    Quantity: <p>{quantity}</p>,
-    Amount: <p>{amount}</p>,
-    Total: <p>{quantity * amount}</p>,
-    Button: (
-      <Tooltip title="Delete">
-        <IconButton
-          color="error"
-          onClick={() => {
-            removeProductHandler(id);
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Tooltip>
-    ),
-  };
-}
-
 const CreateInvoice = () => {
   const [rows, setRows] = useState([
     createData(
@@ -89,6 +61,34 @@ const CreateInvoice = () => {
       })
     );
   };
+
+  function createData(id, description, quantity, amount) {
+    return {
+      id: id,
+      totalCount: quantity * amount,
+      Description: (
+        <div className={classes.invoice_description}>
+          <span>{description.title}</span>
+          <span>{description.subTitle}</span>
+        </div>
+      ),
+      Quantity: <p>{quantity}</p>,
+      Amount: <p>{amount}</p>,
+      Total: <p>{quantity * amount}</p>,
+      Button: (
+        <Tooltip title="Delete">
+          <IconButton
+            color="error"
+            onClick={() => {
+              removeProductHandler(id);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ),
+    };
+  }
 
   const [addItemActive, setAddItemActive] = useState(false);
 
