@@ -119,7 +119,6 @@ const AddProduct = ({ addItemActiveHandler, addRowsHandler }) => {
           name="quantity"
           value={product.quantity}
           disabled={!product.product}
-          // onBlur={quantityErrorHandler}
         />
         {quantityError.flag && (
           <FormHelperText error id="component-error-text">

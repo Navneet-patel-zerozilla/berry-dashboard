@@ -5,6 +5,10 @@ import TextFieldInput from "../../components/Input/TextFieldInput";
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   Divider,
   Grid,
   IconButton,
@@ -53,6 +57,10 @@ const CreateInvoice = () => {
     ),
   ]);
 
+  const [addInvoiceClicked, setAddInvoiceClicked] = useState(false);
+
+  const [addItemActive, setAddItemActive] = useState(false);
+
   const removeProductHandler = (id) => {
     setRows(
       rows.filter((row) => {
@@ -89,8 +97,6 @@ const CreateInvoice = () => {
     };
   }
 
-  const [addItemActive, setAddItemActive] = useState(false);
-
   const addItemActiveHandler = (flag) => {
     setAddItemActive(flag);
   };
@@ -119,8 +125,36 @@ const CreateInvoice = () => {
     ]);
   };
 
+  const getAllInputData = (inputsData) => {
+    console.log(inputsData);
+  };
+
+  const addInvoiceHandler = () => {
+    setAddInvoiceClicked(true);
+  };
+
+  const reverseClick = () => {
+    setAddInvoiceClicked(false);
+  };
+
+  const [open, setOpen] = useState(false);
+  const showModal = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <GlobalDashboardLayout>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>
+          <DialogContentText color="purple">
+            Invoice created successfully
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%" }}>
           <div className={classes.invoice_heading}>
@@ -128,7 +162,12 @@ const CreateInvoice = () => {
           </div>
           <Divider style={{ width: "100%" }} />
           <div className={classes.container}>
-            <InvoiceInputs />
+            <InvoiceInputs
+              addInvoiceClicked={addInvoiceClicked}
+              getAllInputData={getAllInputData}
+              reverseClick={reverseClick}
+              showModal={showModal}
+            />
             <Divider style={{ width: "100%" }} />
             <ProductTable rows={rows} />
             {addItemActive ? (
@@ -139,7 +178,6 @@ const CreateInvoice = () => {
             ) : (
               <AddItemButton addItemActiveHandler={addItemActiveHandler} />
             )}
-
             <Divider style={{ width: "100%" }} />
             <Summary
               total={summarySubTotalCalc}
@@ -159,7 +197,9 @@ const CreateInvoice = () => {
             <Divider style={{ width: "100%" }} />
             <Grid container spacing={2} className={classes.button_invoice}>
               <Grid item xs={12} textAlign="right">
-                <Button variant="contained">Add Invoice</Button>
+                <Button variant="contained" onClick={addInvoiceHandler}>
+                  Add Invoice
+                </Button>
               </Grid>
             </Grid>
           </div>

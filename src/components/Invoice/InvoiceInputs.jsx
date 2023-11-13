@@ -1,12 +1,18 @@
 import { Divider, FormControl, Grid, MenuItem, Select } from "@mui/material";
-import React, { useState, useId } from "react";
+import React, { useState, useId, useEffect } from "react";
 import TextFieldInput from "../Input/TextFieldInput";
 import classes from "../../pages/Create Invoice/create_invoice.module.css";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
-const InvoiceInputs = () => {
+const InvoiceInputs = ({
+  addInvoiceClicked,
+  getAllInputData,
+  reverseClick,
+  showModal,
+}) => {
   const id = useId();
+  const data = ["Pending", "Refund", "Paid"];
 
   const [invoiceDetails, setInvoiceDetails] = useState({
     "Invoice Number": "",
@@ -18,6 +24,8 @@ const InvoiceInputs = () => {
   });
 
   const [inputError, setInputError] = useState({});
+  const [date, setDate] = useState(dayjs());
+  const [addInactive, setAddInactive] = useState(true);
 
   const onInputChange = (e) => {
     setInvoiceDetails({
@@ -42,9 +50,42 @@ const InvoiceInputs = () => {
     }));
   };
 
-  const data = ["Pending", "Refund", "Paid"];
+  useEffect(() => {
+    if (addInvoiceClicked) {
+      const errors = {};
+      Object.keys(invoiceDetails).forEach((data) => {
+        if (invoiceDetails[data].trim() === "") {
+          errors[data] = `${data} Field is required`;
+        }
+      });
+      setInputError(errors);
+      setAddInactive(false);
+    }
+  }, [addInvoiceClicked, invoiceDetails, showModal]);
 
-  const [date, setDate] = useState(dayjs());
+  useEffect(() => {
+    if (
+      addInvoiceClicked &&
+      Object.keys(inputError).length === 0 &&
+      !addInactive
+    ) {
+      getAllInputData({
+        ...invoiceDetails,
+        "Invoice Date": date,
+      });
+      showModal();
+      setAddInactive(true);
+      setInvoiceDetails({
+        "Invoice Number": "",
+        "Customer Name": "",
+        "Customer Email": "",
+        "Customer Contact Number": "",
+        "Customer Address": "",
+        Status: "Pending",
+      });
+      reverseClick();
+    }
+  }, [addInvoiceClicked, addInactive, inputError]);
 
   return (
     <>
@@ -57,6 +98,7 @@ const InvoiceInputs = () => {
             onInputChange={onInputChange}
             onBlur={inputBlurHandler}
             error={inputError["Invoice Number"]}
+            value={invoiceDetails["Invoice Number"]}
           />
         </Grid>
       </Grid>
@@ -70,6 +112,7 @@ const InvoiceInputs = () => {
             onInputChange={onInputChange}
             onBlur={inputBlurHandler}
             error={inputError["Customer Name"]}
+            value={invoiceDetails["Customer Name"]}
           />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -81,6 +124,7 @@ const InvoiceInputs = () => {
             onInputChange={onInputChange}
             onBlur={inputBlurHandler}
             error={inputError["Customer Email"]}
+            value={invoiceDetails["Customer Email"]}
           />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -91,6 +135,8 @@ const InvoiceInputs = () => {
             onInputChange={onInputChange}
             onBlur={inputBlurHandler}
             error={inputError["Customer Contact Number"]}
+            value={invoiceDetails["Customer Contact Number"]}
+            type="number"
           />
         </Grid>
       </Grid>
@@ -103,14 +149,17 @@ const InvoiceInputs = () => {
             onInputChange={onInputChange}
             onBlur={inputBlurHandler}
             error={inputError["Customer Address"]}
+            value={invoiceDetails["Customer Address"]}
           />
         </Grid>
       </Grid>
       <Divider style={{ width: "100%" }} />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <FormControl style={{ width: "100%", marginBottom: "10px" }}>
-            <label id={id}>Invoice Date *</label>
+          <FormControl style={{ width: "100%" }}>
+            <label id={id} style={{ marginBottom: "10px" }}>
+              Invoice Date *
+            </label>
             <DatePicker
               onChange={(newValue) => setDate(newValue.$d)}
               value={date}
@@ -120,8 +169,10 @@ const InvoiceInputs = () => {
           </FormControl>
         </Grid>
         <Grid item xs={12} md={6}>
-          <FormControl style={{ width: "100%", marginBottom: "10px" }}>
-            <label id={id}>Status *</label>
+          <FormControl style={{ width: "100%" }}>
+            <label id={id} style={{ marginBottom: "10px" }}>
+              Status *
+            </label>
             <Select
               size="small"
               style={{
