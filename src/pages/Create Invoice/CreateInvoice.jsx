@@ -49,12 +49,6 @@ const CreateInvoice = () => {
       7,
       200
     ),
-    createData(
-      Math.random(),
-      { title: "Title 5", subTitle: "Sub title" },
-      7,
-      200
-    ),
   ]);
 
   const [addInvoiceClicked, setAddInvoiceClicked] = useState(false);
