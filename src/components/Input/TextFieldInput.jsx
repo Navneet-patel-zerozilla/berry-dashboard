@@ -14,13 +14,12 @@ const TextFieldInput = ({
   type = "text",
   label,
   placeholder = "",
-  variant = "default",
-  className = "",
-  data = [],
-  disabled,
-  inputHandler,
   name = "",
   value = "",
+  onInputChange,
+  error,
+  onBlur,
+  disabled = false,
 }) => {
   const id = useId();
 
@@ -29,90 +28,26 @@ const TextFieldInput = ({
       <label id={id} style={{ marginBottom: "10px" }}>
         {label}
       </label>
-      {variant === "default" && (
-        <OutlinedInput
-          id={id}
-          aria-describedby="outlined-weight-helper-text"
-          placeholder={placeholder}
-          type={type}
-          size="small"
-          style={{
-            backgroundColor: "rgb(248, 250, 252)",
-          }}
-          disabled={disabled}
-          onChange={inputHandler}
-          name={name}
-          defaultValue={value}
-        />
-      )}
-      {variant === "disabled" && (
-        <OutlinedInput
-          id={id}
-          aria-describedby="outlined-weight-helper-text"
-          placeholder={placeholder}
-          type={type}
-          size="small"
-          style={{
-            backgroundColor: "rgb(248, 250, 252)",
-          }}
-          disabled={disabled}
-          onChange={inputHandler}
-          name={name}
-          value={value}
-        />
-      )}
-      {/* For error use below */}
-      {/* <FormHelperText error id="component-error-text">
-        Error
-      </FormHelperText> */}
-      {variant === "date" && (
-        <DatePicker
-          onChange={inputHandler}
-          className={className}
-          slotProps={{ textField: { size: "small" } }}
-          name={name}
-          // defaultValue={value}
-        />
-      )}
-      {variant === "select" && (
-        <Select
-          defaultValue={value}
-          onChange={inputHandler}
-          inputProps={{ "aria-label": "Without label" }}
-          size="small"
-          style={{
-            backgroundColor: "rgb(248, 250, 252)",
-          }}
-          name={name}
-        >
-          {data.map((option) => {
-            if (!Array.isArray(option)) {
-              return (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              );
-            }
-            return (
-              <MenuItem key={option} value={option}>
-                <Grid container spacing={2}>
-                  {option.map((opt, index) => {
-                    return (
-                      <Grid
-                        key={index}
-                        item
-                        xs={6}
-                        textAlign={index === 1 ? "right" : "left"}
-                      >
-                        {opt}
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </MenuItem>
-            );
-          })}
-        </Select>
+      <OutlinedInput
+        id={id}
+        aria-describedby="outlined-weight-helper-text"
+        placeholder={placeholder}
+        type={type}
+        size="small"
+        style={{
+          backgroundColor: "rgb(248, 250, 252)",
+        }}
+        name={name}
+        value={value}
+        onChange={onInputChange}
+        onBlur={onBlur}
+        disabled={disabled}
+      />
+
+      {error && (
+        <FormHelperText error id="component-error-text">
+          {error}
+        </FormHelperText>
       )}
     </FormControl>
   );

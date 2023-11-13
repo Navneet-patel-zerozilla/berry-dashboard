@@ -17,6 +17,7 @@ import Summary from "../../components/Invoice/Summary";
 import AddProduct from "../../components/Invoice/AddProduct";
 import AddItemButton from "../../components/Invoice/AddItemButton";
 import ProductTable from "../../components/Invoice/ProductTable";
+import InvoiceInputs from "../../components/Invoice/InvoiceInputs";
 
 const CreateInvoice = () => {
   const [rows, setRows] = useState([
@@ -51,8 +52,6 @@ const CreateInvoice = () => {
       200
     ),
   ]);
-
-  console.log(rows);
 
   const removeProductHandler = (id) => {
     setRows(
@@ -102,8 +101,8 @@ const CreateInvoice = () => {
   });
 
   const addRowsHandler = (data) => {
-    const productName = data.product[0];
-    const price = data.product[1].split(":")[1];
+    const productName = data.product.title;
+    const price = data.product.subTitle.split(":")[1];
     const quantity = data.quantity;
 
     setRows((prevState) => [
@@ -129,62 +128,7 @@ const CreateInvoice = () => {
           </div>
           <Divider style={{ width: "100%" }} />
           <div className={classes.container}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
-                <TextFieldInput
-                  placeholder="Invoice #"
-                  label="Invoice Number *"
-                />
-              </Grid>
-            </Grid>
-            <Divider style={{ width: "100%" }} />
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
-                <TextFieldInput
-                  placeholder="Navneet P."
-                  label="Customer Name *"
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <TextFieldInput
-                  placeholder="email@example.com"
-                  label="Customer Email *"
-                  type="email"
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <TextFieldInput
-                  placeholder="+91 9999999999"
-                  label="Customer Contact Numberr *"
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextFieldInput
-                  placeholder="Enter Address."
-                  label="Customer Address *"
-                />
-              </Grid>
-            </Grid>
-            <Divider style={{ width: "100%" }} />
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <TextFieldInput
-                  label="Invoice Date *"
-                  variant="date"
-                  className={classes.date_picker}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextFieldInput
-                  label="Status *"
-                  variant="select"
-                  data={["Pending", "Refund", "Paid"]}
-                  value="Pending"
-                />
-              </Grid>
-            </Grid>
+            <InvoiceInputs />
             <Divider style={{ width: "100%" }} />
             <ProductTable rows={rows} />
             {addItemActive ? (
@@ -207,7 +151,7 @@ const CreateInvoice = () => {
               <Grid item xs={12}>
                 <TextFieldInput
                   label="Terms and Condition: *"
-                  defaultValue="I acknowledge terms and conditions."
+                  value="I acknowledge terms and conditions."
                   placeholder="Enter Address"
                 />
               </Grid>
